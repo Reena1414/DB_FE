@@ -2,6 +2,8 @@ import React,{Component} from "react";
 import { Table, Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {hostNameUrl} from '../../config/api'
+import '../../bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css'
+
 
 class SecurityList extends Component {
 
