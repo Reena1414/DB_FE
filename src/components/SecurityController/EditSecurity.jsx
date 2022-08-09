@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Form, Col, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {hostNameUrl} from '../../config/api'
-import '../../bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css'
+
 
 class EditSecurity extends Component {
     constructor(props) {
@@ -41,16 +41,17 @@ class EditSecurity extends Component {
             .then(
                 (result) => {
                     if (result) {
+                        console.log(result)
                         this.setState({
-                            Id:result.Id,
-                            ISIN:result.ISIN,
-                            CUSIP:result.CUSIP,
-                            Issuer:result.Issuer,
-                            MaturityDate:result.MaturityDate,
-                            Coupon:result.Coupon,
-                            Type:result.Type,
-                            FaceValue:result.FaceValue,
-                            Status:result.Status
+                            Id:result.id,
+                            ISIN:result.isin,
+                            CUSIP:result.cusip,
+                            Issuer:result.issuer,
+                            MaturityDate:result.maturity_date,
+                            Coupon:result.coupon,
+                            Type:result.type_,
+                            FaceValue:result.face_value,
+                            Status:result.status_
                             
                         });
                     }
@@ -67,15 +68,15 @@ class EditSecurity extends Component {
     UpdateSecurity() {
         
         let body = {
-            Id:this.props.match.params.id,
-            ISIN:this.state.ISIN,
-            CUSIP:this.state.CUSIP,
-            Issuer:this.state.Issuer,
-            MaturityDate:this.state.MaturityDate,
-            Coupon:this.state.Coupon,
-            Type:this.state.Type,
-            FaceValue:this.state.FaceValue,
-            Status:this.state.Status
+            id:this.props.match.params.id,
+            isin:this.state.ISIN,
+            cusip:this.state.CUSIP,
+            issuer:this.state.Issuer,
+            maturity_date:this.state.MaturityDate,
+            coupon:this.state.Coupon,
+            type_:this.state.Type,
+            face_value:this.state.FaceValue,
+            status:this.state.Status
         };
 
         const requestOptions = {

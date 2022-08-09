@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Form, Col, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { hostNameUrl } from "../../config/api";
-import '../../bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css'
+
 
 class AddTrade extends Component {
     constructor(props) {
@@ -31,28 +31,30 @@ class AddTrade extends Component {
     addTrade() {
 
         let body = {
-                Id:this.state.Id,
-                BookId:this.state.BookId,
-                CounterPartyId:this.state.CounterPartyId,
-                SecurityId:this.state.SecurityId,
-                Quantity:this.state.Quantity,
-                Status:this.state.Status,
-                Price:this.state.Price,
-                Buy_Sell:this.state.Buy_Sell,
-                TradeDate:this.state.TradeDate,
-                SettlementDate:this.state.SettlementDate
+            id:this.state.Id,
+            book_id:this.state.BookId,
+            counter_party_id:this.state.CounterPartyId,
+            security_id:this.state.SecurityId,
+            quantity:this.state.Quantity,
+            status_:this.state.Status,
+            price:this.state.Price,
+            buy_sell:this.state.Buy_Sell,
+            trade_date:this.state.TradeDate,
+            settlement_date:this.state.SettlementDate
         };
+        console.log(body);
 
         const requestOptions = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": true,
                 Accept: "application/json",
             },
-            body: JSON.stringify(body),
+            body: JSON.parse(JSON.stringify(body)),
         };
 
-        let baseurl = hostNameUrl + "/trade/";
+        let baseurl = hostNameUrl + "/trade-add";
         fetch(baseurl, requestOptions)
             .then((res) => {
                 return res.json();
@@ -83,7 +85,7 @@ class AddTrade extends Component {
         return (
             <div>
                 <h1>Add Trade</h1>
-                <Link variant="primary" to="/td">View Trade list</Link>
+                <Link variant="primary" to="/td">View Securitylist</Link>
                 <Row>
                     <Col sm={6}>
                         <Form onSubmit={this.handleSubmit}>

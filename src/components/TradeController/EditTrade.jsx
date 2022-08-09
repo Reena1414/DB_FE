@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Form, Col, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {hostNameUrl} from '../../config/api'
-import '../../bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css'
+
 
 class EditTrade extends Component {
     constructor(props) {
@@ -43,16 +43,16 @@ class EditTrade extends Component {
                 (result) => {
                     if (result) {
                         this.setState({
-                            Id:result.Id,
-                            BookId:result.BookId,
-                            CounterPartyId:result.CounterPartyId,
-                            SecurityId:result.SecurityId,
-                            Quantity:result.Quantity,
-                            Status:result.Status,
-                            Price:result.Price,
-                            Buy_Sell:result.Buy_Sell,
-                            TradeDate:result.TradeDate,
-                            SettlementDate:result.SettlementDate
+                            Id:result.id,
+                            BookId:result.book_id,
+                            CounterPartyId:result.counter_party_id,
+                            SecurityId:result.security_id,
+                            Quantity:result.quantity,
+                            Status:result.status_,
+                            Price:result.price,
+                            Buy_Sell:result.buy_sell,
+                            TradeDate:result.trade_date,
+                            SettlementDate:result.settlement_date
                         });
                     }
                     else {
@@ -68,16 +68,16 @@ class EditTrade extends Component {
     UpdateTrade() {
         
         let body = {
-                Id:this.state.Id,
-                BookId:this.state.BookId,
-                CounterPartyId:this.state.CounterPartyId,
-                SecurityId:this.state.SecurityId,
-                Quantity:this.state.Quantity,
-                Status:this.state.Status,
-                Price:this.state.Price,
-                Buy_Sell:this.state.Buy_Sell,
-                TradeDate:this.state.TradeDate,
-                SettlementDate:this.state.SettlementDate
+                id:this.state.Id,
+                book_id:this.state.BookId,
+                counter_party_id:this.state.CounterPartyId,
+                security_id:this.state.SecurityId,
+                quantity:this.state.Quantity,
+                status_:this.state.Status,
+                price:this.state.Price,
+                buy_sell:this.state.Buy_Sell,
+                trade_date:this.state.TradeDate,
+                settlement_date:this.state.SettlementDate
         };
 
         const requestOptions = {
@@ -108,7 +108,7 @@ class EditTrade extends Component {
         return (
             <div>
                 <h1>Edit Trade</h1>
-                <Link variant="primary" to="/td">View Trade list</Link>
+                <Link variant="primary" to="/sc">View Security list</Link>
                 <Row>
                     <Col sm={6}>
                     <Form onSubmit={this.handleSubmit}>

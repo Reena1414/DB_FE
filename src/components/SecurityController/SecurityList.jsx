@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import { Table, Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {hostNameUrl} from '../../config/api'
-import '../../bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css'
+
 
 
 class SecurityList extends Component {
@@ -16,11 +16,10 @@ class SecurityList extends Component {
   }
 
   componentDidMount() {
-    fetch(hostNameUrl+ "/security/")
+    fetch(hostNameUrl+ "/securities")
         .then(res => res.json())
         .then(
             (result) => {
-                debugger;
                 this.setState({
                     security: result
                 });
@@ -32,7 +31,7 @@ class SecurityList extends Component {
 }
     deleteSecurity(Id){
       const { security } = this.state;
-      const apiUrl = hostNameUrl + "/security?id="+Id;
+      const apiUrl = hostNameUrl + "/security-delete?id="+Id;
 
       fetch(apiUrl, { method: 'DELETE' })
       .then(async response => {
@@ -42,7 +41,7 @@ class SecurityList extends Component {
               return Promise.reject(error);
           }
           this.setState({
-              security: security.filter(sc => sc.Id !== Id)
+              security: security.filter(sc => sc.id !== Id)
           });
           alert('Delete successful');
       })
@@ -53,6 +52,7 @@ class SecurityList extends Component {
   }
   render() {
     var securitylist=this.state.security;
+    console.log(this.state.security)
     if (securitylist && securitylist.length > 0) {
       return (<div>
           <h2>Security List</h2>
@@ -73,19 +73,20 @@ class SecurityList extends Component {
                     </thead>
                     <tbody>
                         { securitylist.map(sc => 
-                          <tr key={sc.Id}>
-                          <td>{sc.Id}</td>
-                          <td>{sc.ISIN} </td>
-                          <td>{sc.CUSIP}</td>
-                          <td>{sc.Issuer}</td>
-                          <td>{sc.MaturityDate}</td>
-                          <td>{sc.Coupon}</td>
-                          <td>{sc.Type}</td>
-                          <td>{sc.FaceValue}</td>
-                          <td>{sc.Status}</td>
+                          <tr key={sc.id}>
+                          <td>{sc.id}</td>
+                          <td>{sc.isin} </td>
+                          <td>{sc.cusip}</td>
+                          <td>{sc.issuer}</td>
+                          <td>{sc.maturity_date}</td>
+                          <td>{sc.coupon}</td>
+                          <td>{sc.type_}</td>
+                          <td>{sc.face_value}</td>
+                          <td>{sc.status_}</td>
                           <td>
-                            <Link variant="info" to={"/editsecurity/" + sc.Id}>Edit</Link>
-                            &nbsp;<Button variant="danger" onClick={() => this.deleteSecurity(sc.Id)}>Delete</Button>
+                            <Link variant="info" to={"/td/" + sc.id}>SecurityTrades</Link>
+                            &nbsp;&nbsp;<Link variant="info" to={"/editsecurity/" + sc.id}>Edit</Link>
+                            &nbsp;<Button variant="danger" onClick={() => this.deleteSecurity(sc.id)}>Delete</Button>
                           </td>
                           </tr>)
                         }

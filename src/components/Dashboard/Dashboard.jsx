@@ -77,7 +77,7 @@ export const Dashboard = () => {
               justifyContent="center"
             >
               <Button variant="outlined"><Link variant="primary" to="/sc">View Security list</Link></Button>
-              <Button variant="outlined"><Link variant="primary" to="/td">View Trade list</Link></Button>
+
             </Stack>
           </Container>
         </Box>

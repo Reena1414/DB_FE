@@ -17,7 +17,7 @@ function App() {
               <Route path="/sc" exact component={SecurityList} />
               <Route path="/editsecurity/:id" exact component={EditSecurity} />
               <Route path="/addsecurity" exact component={AddSecurity} />
-              <Route path="/td" exact component={TradeList} />
+              <Route path="/td/:id" exact component={TradeList} />
               <Route path="/edittrade/:id" exact component={EditTrade} />
               <Route path="/addtrade" exact component={AddTrade} />
             </Switch>

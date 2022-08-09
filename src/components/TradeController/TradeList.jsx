@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import { Table, Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import {hostNameUrl} from '../../config/api'
-import '../../bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css'
+
 
 class TradeList extends Component {
 
@@ -14,14 +14,14 @@ class TradeList extends Component {
     }
   }
 
-  componentDidMount() {
-    fetch(hostNameUrl+ "/trade/")
+  componentDidMount(props) {
+    fetch(hostNameUrl+ "/trade/"+this.props.match.params.id)
         .then(res => res.json())
         .then(
             (result) => {
-                debugger;
+                console.log(result)
                 this.setState({
-                    trade: result
+                    trade:result
                 });
             },
             (error) => {
@@ -41,8 +41,9 @@ class TradeList extends Component {
               return Promise.reject(error);
           }
           this.setState({
-              trade: trade.filter(td => td.Id !== Id)
+              trade: trade.filter(td => td.id !== Id)
           });
+          console.log(trade)
           alert('Delete successful');
       })
       .catch(error => {
@@ -52,6 +53,7 @@ class TradeList extends Component {
   }
   render() {
     var tradelist=this.state.trade;
+    // console.log(tradelist)
     if (tradelist && tradelist.length > 0) {
       return (<div>
           <h2>Trade List</h2>
@@ -73,20 +75,20 @@ class TradeList extends Component {
                     </thead>
                     <tbody>
                         { tradelist.map(td => 
-                          <tr key={td.Id}>
-                          <td>{td.Id}</td>
-                          <td>{td.BookId} </td>
-                          <td>{td.CounterPartyId}</td>
-                          <td>{td.SecurityId}</td>
-                          <td>{td.Quantity}</td>
-                          <td>{td.Status}</td>
-                          <td>{td.Price}</td>
-                          <td>{td.Buy_Sell}</td>
-                          <td>{td.TradeDate}</td>
-                          <td>{td.SettlementDate}</td>
+                          <tr key={td.id}>
+                          <td>{td.id}</td>
+                          <td>{td.book_id} </td>
+                          <td>{td.counter_party_id}</td>
+                          <td>{td.security_id}</td>
+                          <td>{td.quantity}</td>
+                          <td>{td.status_}</td>
+                          <td>{td.price}</td>
+                          <td>{td.buy_sell}</td>
+                          <td>{td.trade_date}</td>
+                          <td>{td.settlement_date}</td>
                           <td>
-                            <Link variant="info" to={"/edittrade/" + td.Id}>Edit</Link>
-                            &nbsp;<Button variant="danger" onClick={() => this.deleteTrade(td.Id)}>Delete</Button>
+                            <Link variant="info" to={"/edittrade/" + td.id}>Edit</Link>
+                            &nbsp;<Button variant="danger" onClick={() => this.deleteTrade(td.id)}>Delete</Button>
                           </td>
                           </tr>)
                         }
