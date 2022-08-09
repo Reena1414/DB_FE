@@ -36,7 +36,7 @@ class EditTrade extends Component {
         this.GetTradeById(Tdid);
     }
     GetTradeById(Tdid) {
-        const apiUrl = hostNameUrl + "/trade?id=" + Tdid;
+        const apiUrl = hostNameUrl + "/trade/" + Tdid;
         fetch(apiUrl)
             .then(res => res.json())
             .then(
@@ -68,28 +68,27 @@ class EditTrade extends Component {
     UpdateTrade() {
         
         let body = {
-                id:this.state.Id,
-                book_id:this.state.BookId,
-                counter_party_id:this.state.CounterPartyId,
-                security_id:this.state.SecurityId,
-                quantity:this.state.Quantity,
-                status_:this.state.Status,
-                price:this.state.Price,
-                buy_sell:this.state.Buy_Sell,
-                trade_date:this.state.TradeDate,
-                settlement_date:this.state.SettlementDate
+                "id":this.state.Id,
+                "book_id":this.state.BookId,
+                "counter_party_id":this.state.CounterPartyId,
+                "security_id":this.state.SecurityId,
+                "quantity":this.state.Quantity,
+                "status_":this.state.Status,
+                "price":this.state.Price,
+                "buy_sell":this.state.Buy_Sell,
+                "trade_date":this.state.TradeDate,
+                "settlement_date":this.state.SettlementDate
         };
 
         const requestOptions = {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
             body: JSON.stringify(body),
         };
 
-        let baseurl = hostNameUrl + "/trade?id="+this.props.match.params.id;
+        let baseurl = hostNameUrl + "/trade-update";
         fetch(baseurl, requestOptions)
             .then((res) => {
                 return res.json();
@@ -108,7 +107,7 @@ class EditTrade extends Component {
         return (
             <div>
                 <h1>Edit Trade</h1>
-                <Link variant="primary" to="/sc">View Security list</Link>
+                <Link variant="primary" to="/td">View Trade list</Link>
                 <Row>
                     <Col sm={6}>
                     <Form onSubmit={this.handleSubmit}>

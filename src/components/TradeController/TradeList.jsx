@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {hostNameUrl} from '../../config/api'
 
 
+
 class TradeList extends Component {
 
   constructor(props) {
@@ -14,8 +15,8 @@ class TradeList extends Component {
     }
   }
 
-  componentDidMount(props) {
-    fetch(hostNameUrl+ "/trade/"+this.props.match.params.id)
+  componentDidMount() {
+    fetch(hostNameUrl+ "/trades")
         .then(res => res.json())
         .then(
             (result) => {
@@ -29,27 +30,42 @@ class TradeList extends Component {
             }
         )
 }
+
+sortAscending = () => {
+  const sortAsc = this.state.trade;
+  sortAsc.sort((a, b) => a.settlement_date- b.settlement_date).reverse()
+  this.setState({
+    trade:sortAsc
+ })
+}
+
     deleteTrade(Id){
       const { trade } = this.state;
-      const apiUrl = hostNameUrl + "/trade?id="+Id;
+      const baseurl = hostNameUrl + "/trade/"+Id;
 
-      fetch(apiUrl, { method: 'DELETE' })
-      .then(async response => {
-          const data = await response.json();
-          if (!response.ok) {
-              const error = (data && data.message) || response.status;
-              return Promise.reject(error);
-          }
+      const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+   
+    fetch(baseurl, requestOptions)
+        .then((res) => {
+            return res;
+        })
+        .then((results) => {
           this.setState({
-              trade: trade.filter(td => td.id !== Id)
+            trade: trade.filter(td => td.id !== Id)
           });
-          console.log(trade)
           alert('Delete successful');
-      })
-      .catch(error => {
-          alert('There was an error!');
-          console.error('There was an error!', error);
-      });
+        
+        })
+        .catch((e) => {
+            alert(e);
+        });
+
+      
   }
   render() {
     var tradelist=this.state.trade;
@@ -71,6 +87,7 @@ class TradeList extends Component {
                           <th>Buy_Sell</th>
                           <th>TradeDate</th>
                           <th>SettlementDate</th>
+                          <th><button onClick={this.sortAscending}>matured recently</button></th>
                         </tr>
                     </thead>
                     <tbody>

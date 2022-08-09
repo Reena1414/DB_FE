@@ -14,8 +14,7 @@ class AddSecurity extends Component {
             Coupon:'',
             Type:'',
             FaceValue:'',
-            Status:'',
-            Trades:[]
+            Status:''
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -28,29 +27,30 @@ class AddSecurity extends Component {
     }
     addSecurity() {
 
+
+
         let body = {
-            id:this.props.match.params.id,
-            isin:this.state.ISIN,
-            cusip:this.state.CUSIP,
-            issuer:this.state.Issuer,
-            maturity_date:this.state.MaturityDate,
-            coupon:this.state.Coupon,
-            type_:this.state.Type,
-            face_value:this.state.FaceValue,
-            status:this.state.Status,
-            trades:this.state.Trades
+            "id": this.state.Id,
+            "isin": this.state.ISIN,
+            "cusip": this.state.CUSIP,
+            "issuer": this.state.Issuer,
+            "maturity_date": this.state.MaturityDate,
+            "coupon": this.state.Coupon,
+            "type_": this.state.Type,
+            "face_value": this.state.FaceValue,
+            "status_": this.state.Status,
+            "trades": []
         };
-       
+
+
         const requestOptions = {
             method: "POST",
             headers: {
-                "Access-Control-Allow-Origin": true,
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
-            body: JSON.parse(JSON.stringify(body)),
+            body: JSON.stringify(body),
         };
-
+       
         let baseurl = hostNameUrl + "/securityadd";
         fetch(baseurl, requestOptions)
             .then((res) => {
@@ -68,8 +68,7 @@ class AddSecurity extends Component {
                         Coupon:'',
                         Type:'',
                         FaceValue:'',
-                        Status:'',
-                        Trades:[]
+                        Status:''
                     })
                 }
             })
@@ -166,15 +165,6 @@ class AddSecurity extends Component {
                                     value={this.state.Status}
                                     onChange={this.handleChange}
                                     placeholder="Status" />
-                            </Form.Group>
-                            <Form.Group controlId="Trades">
-                                <Form.Label>Trades</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="Trades"
-                                    value={this.state.Trades}
-                                    onChange={this.handleChange}
-                                    placeholder="Trades" />
                             </Form.Group>
                             <Form.Group>
                                 <Button variant="success" onClick={() => this.addSecurity()}>Save</Button>

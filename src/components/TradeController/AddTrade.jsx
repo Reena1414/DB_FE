@@ -31,16 +31,16 @@ class AddTrade extends Component {
     addTrade() {
 
         let body = {
-            id:this.state.Id,
-            book_id:this.state.BookId,
-            counter_party_id:this.state.CounterPartyId,
-            security_id:this.state.SecurityId,
-            quantity:this.state.Quantity,
-            status_:this.state.Status,
-            price:this.state.Price,
-            buy_sell:this.state.Buy_Sell,
-            trade_date:this.state.TradeDate,
-            settlement_date:this.state.SettlementDate
+                "id":this.state.Id,
+                "book_id":this.state.BookId,
+                "counter_party_id":this.state.CounterPartyId,
+                "security_id":this.state.SecurityId,
+                "quantity":this.state.Quantity,
+                "status_":this.state.Status,
+                "price":this.state.Price,
+                "buy_sell":this.state.Buy_Sell,
+                "trade_date":this.state.TradeDate,
+                "settlement_date":this.state.SettlementDate
         };
         console.log(body);
 
@@ -48,8 +48,6 @@ class AddTrade extends Component {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": true,
-                Accept: "application/json",
             },
             body: JSON.parse(JSON.stringify(body)),
         };
@@ -85,7 +83,7 @@ class AddTrade extends Component {
         return (
             <div>
                 <h1>Add Trade</h1>
-                <Link variant="primary" to="/td">View Securitylist</Link>
+                <Link variant="primary" to="/td">View Trade list</Link>
                 <Row>
                     <Col sm={6}>
                         <Form onSubmit={this.handleSubmit}>

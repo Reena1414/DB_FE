@@ -35,7 +35,7 @@ class EditSecurity extends Component {
         this.GetSecurityById(Scid);
     }
     GetSecurityById(Scid) {
-        const apiUrl = hostNameUrl + "/security?id=" + Scid;
+        const apiUrl = hostNameUrl + "/security/" + Scid;
         fetch(apiUrl)
             .then(res => res.json())
             .then(
@@ -68,35 +68,35 @@ class EditSecurity extends Component {
     UpdateSecurity() {
         
         let body = {
-            id:this.props.match.params.id,
-            isin:this.state.ISIN,
-            cusip:this.state.CUSIP,
-            issuer:this.state.Issuer,
-            maturity_date:this.state.MaturityDate,
-            coupon:this.state.Coupon,
-            type_:this.state.Type,
-            face_value:this.state.FaceValue,
-            status:this.state.Status
+            "id": this.state.Id,
+            "isin": this.state.ISIN,
+            "cusip": this.state.CUSIP,
+            "issuer": this.state.Issuer,
+            "maturity_date": this.state.MaturityDate,
+            "coupon": this.state.Coupon,
+            "type_": this.state.Type,
+            "face_value": this.state.FaceValue,
+            "status_": this.state.Status,
+            "trades": []
         };
 
         const requestOptions = {
-            method: 'PUT',
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Accept: "application/json",
             },
             body: JSON.stringify(body),
         };
-
-        let baseurl = hostNameUrl + "/security?id="+this.props.match.params.id;
+        console.log(body);
+        let baseurl = hostNameUrl + "/security-update";
         fetch(baseurl, requestOptions)
             .then((res) => {
-                return res.json();
+                return res;
             })
             .then((results) => {
-                if (results) {
-                    alert("Updated successfully!");
-                }
+                
+                    alert("Updated successfully");
+            
             })
             .catch((e) => {
                 alert(e);

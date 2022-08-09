@@ -29,26 +29,33 @@ class SecurityList extends Component {
             }
         )
 }
+
+
     deleteSecurity(Id){
       const { security } = this.state;
-      const apiUrl = hostNameUrl + "/security-delete?id="+Id;
+      const baseurl = hostNameUrl + "/security-delete/"+Id;
 
-      fetch(apiUrl, { method: 'DELETE' })
-      .then(async response => {
-          const data = await response.json();
-          if (!response.ok) {
-              const error = (data && data.message) || response.status;
-              return Promise.reject(error);
-          }
+      const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+   
+    fetch(baseurl, requestOptions)
+        .then((res) => {
+            return res;
+        })
+        .then((results) => {
           this.setState({
-              security: security.filter(sc => sc.id !== Id)
+            security: security.filter(sc => sc.id !== Id)
           });
           alert('Delete successful');
-      })
-      .catch(error => {
-          alert('There was an error!');
-          console.error('There was an error!', error);
-      });
+        
+        })
+        .catch((e) => {
+            alert(e);
+        });
   }
   render() {
     var securitylist=this.state.security;
@@ -84,8 +91,7 @@ class SecurityList extends Component {
                           <td>{sc.face_value}</td>
                           <td>{sc.status_}</td>
                           <td>
-                            <Link variant="info" to={"/td/" + sc.id}>SecurityTrades</Link>
-                            &nbsp;&nbsp;<Link variant="info" to={"/editsecurity/" + sc.id}>Edit</Link>
+                            <Link variant="info" to={"/editsecurity/" + sc.id}>Edit</Link>
                             &nbsp;<Button variant="danger" onClick={() => this.deleteSecurity(sc.id)}>Delete</Button>
                           </td>
                           </tr>)
